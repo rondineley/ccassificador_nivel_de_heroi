@@ -1,32 +1,50 @@
-function classificarHeroi() {
-  const nome = document.getElementById('nome').value.trim();
-  const xp = parseInt(document.getElementById('xp').value);
-  const resultado = document.getElementById('resultado');
 
-  if (nome === '' || isNaN(xp)) {
-    resultado.innerHTML = 'Por favor, preencha todos os campos corretamente.';
-    return;
-  }
+let herois = [];
 
-  let nivel = '';
+function determinarNivel(xp) {
+    if (xp < 1000) {
+        return "Ferro";
+    } else if (xp <= 2000) {
+        return "Bronze";
+    } else if (xp <= 5000) {
+        return "Prata";
+    } else if (xp <= 7000) {
+        return "Ouro";
+    } else if (xp <= 8000) {
+        return "Platina";
+    } else if (xp <= 9000) {
+        return "Ascendente";
+    } else if (xp <= 10000) {
+        return "Imortal";
+    } else {
+        return "Radiante";
+    }
+}
 
-  if (xp < 1000) {
-    nivel = 'Ferro';
-  } else if (xp >= 1001 && xp <= 2000) {
-    nivel = 'Bronze';
-  } else if (xp >= 2001 && xp <= 5000) {
-    nivel = 'Prata';
-  } else if (xp >= 6001 && xp <= 7000) {
-    nivel = 'Ouro';
-  } else if (xp >= 7001 && xp <= 8000) {
-    nivel = 'Platina';
-  } else if (xp >= 8001 && xp <= 9000) {
-    nivel = 'Ascendente';
-  } else if (xp >= 9001 && xp <= 10000) {
-    nivel = 'Imortal';
-  } else if (xp >= 10001) {
-    nivel = 'Radiante';
-  }
+function consultarNivel() {
 
-  resultado.innerHTML = `🦸‍♂️ O Herói de nome <strong>${nome}</strong> está no nível de <strong>${nivel}</strong>.`;
+    // Obtém os valores dos campos de entrada
+    let nomeHeroi = document.getElementById('username').value;
+    let xpHeroi = parseInt(document.getElementById('userxp').value);
+
+    // Verifica se o XP é um número válido
+    if (isNaN(xpHeroi)) {
+        alert("Por favor, insira um valor numérico para XP.");
+        return;
+    }
+
+    // Exibe o elemento 'result' e oculta o elemento 'form
+    document.getElementById("result").style.display = "inline-block";
+    document.getElementById("form").style.display = "none";
+
+    // Determina o nível do herói
+    let nivel = determinarNivel(xpHeroi);
+
+    // Adiciona o herói ao array
+    herois.push({ nome: nomeHeroi, xp: xpHeroi });
+
+ 
+    // Exibe o resultado na tela
+    let resultadoDiv = document.getElementById('result');
+    resultadoDiv.innerHTML = `O Herói de nome ${nomeHeroi} está no nível de ${nivel}`;
 }
